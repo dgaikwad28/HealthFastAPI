@@ -1,0 +1,262 @@
+{
+	"info": {
+		"_postman_id": "7669d3a2-27b2-402c-abb7-d8dba28bf15d",
+		"name": "HealtTechInnovations",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "9178500"
+	},
+	"item": [
+		{
+			"name": "Get records list patient",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{base_url}}/api/record/patient/?patient_id={{patient_id}}",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"record",
+						"patient",
+						""
+					],
+					"query": [
+						{
+							"key": "patient_id",
+							"value": "{{patient_id}}"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create records",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseJson = pm.response.json();\r",
+							"\r",
+							"pm.environment.set(\"record_id\", responseJson.id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"physician_id\": \"{{physician_id}}\",\r\n    \"patient_id\": \"{{patient_id}}\", \r\n    \"diagnosis\": \"alles gut\",\r\n    \"healthy\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/record/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"record",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create patients",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.sendRequest(\r",
+							"{\r",
+							"    url: pm.environment.get(\"base_url\") + \"/api/user/\",\r",
+							"    method: 'POST',\r",
+							"    header: {\r",
+							"        'content-type': 'application/json'\r",
+							"    },\r",
+							"    body: {\r",
+							"        mode: 'raw',\r",
+							"        raw: JSON.stringify(\r",
+							"            {\r",
+							"            username: pm.variables.replaceIn('{{$randomUserName}}'),\r",
+							"            password: pm.variables.replaceIn('{{$randomPassword}}'),\r",
+							"            email: pm.variables.replaceIn('{{$randomEmail}}'),\r",
+							"            }\r",
+							"        )\r",
+							"        }\r",
+							"    }, function (err, res) {\r",
+							"    var jsonData = res.json();\r",
+							"    pm.environment.set(\"user_id\", jsonData.id);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseJson = pm.response.json();\r",
+							"\r",
+							"pm.environment.set(\"patient_id\", responseJson.id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\": \"{{user_id}}\",\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"age\": 10\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/patient/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"patient",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create physician",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.sendRequest(\r",
+							"{\r",
+							"    url: pm.environment.get(\"base_url\") + \"/api/user/\",\r",
+							"    method: 'POST',\r",
+							"    header: {\r",
+							"        'content-type': 'application/json'\r",
+							"    },\r",
+							"    body: {\r",
+							"        mode: 'raw',\r",
+							"        raw: JSON.stringify(\r",
+							"            {\r",
+							"            username: pm.variables.replaceIn('{{$randomUserName}}'),\r",
+							"            password: pm.variables.replaceIn('{{$randomPassword}}'),\r",
+							"            email: pm.variables.replaceIn('{{$randomEmail}}'),\r",
+							"            }\r",
+							"        )\r",
+							"        }\r",
+							"    }, function (err, res) {\r",
+							"    var jsonData = res.json();\r",
+							"    pm.environment.set(\"user_id\", jsonData.id);\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"const responseJson = pm.response.json();\r",
+							"\r",
+							"pm.environment.set(\"physician_id\", responseJson.id);"
+						],
+						"type": "text/javascript",
+						"packages": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"user_id\": \"{{user_id}}\",\r\n    \"name\": \"{{$randomFullName}}\",\r\n    \"speciality\": \"{{$randomJobType}}\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{base_url}}/api/physician/",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"physician",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create user",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"asdasd\",\r\n    \"email\": \"d22ssgdgsds@g.de\", \r\n    \"password\": \"alles gut\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8000/api/users/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8000",
+					"path": [
+						"api",
+						"users",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

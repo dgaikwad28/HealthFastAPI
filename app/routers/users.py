@@ -22,6 +22,19 @@ api_logger = getLogger('api')
                        status_code=status.HTTP_201_CREATED,
                        response_model=UserResponse)
 async def create_user(user: UserCreate, db: Session = Depends(get_db)):
+    """
+       Create a new user.
+
+       Args:
+       - user: UserCreate - The user data to be created.
+       - db: Session - The database session.
+
+       Returns:
+       - dict: The created user data.
+
+       Raises:
+       - InvalidData: If the data provided is invalid.
+   """
     user_instance = User(**user.model_dump())
 
     db.add(user_instance)
@@ -38,6 +51,19 @@ async def create_user(user: UserCreate, db: Session = Depends(get_db)):
                        status_code=status.HTTP_201_CREATED,
                        response_model=PatientResponse)
 async def create_patient(patient: PatientCreate, db: Session = Depends(get_db)):
+    """
+        Create a new patient.
+
+        Args:
+        - patient: PatientCreate - The patient data to be created.
+        - db: Session - The database session.
+
+        Returns:
+        - dict: The created patient data.
+
+        Raises:
+        - InvalidData: If the data provided is invalid.
+    """
     patient_instance = Patient(**patient.model_dump())
 
     db.add(patient_instance)
@@ -55,6 +81,19 @@ async def create_patient(patient: PatientCreate, db: Session = Depends(get_db)):
                        status_code=status.HTTP_201_CREATED,
                        response_model=PhysicianResponse)
 async def create_physician(physician: PhysicianCreate, db: Session = Depends(get_db)):
+    """
+        Create a new physician.
+
+        Args:
+        - physician: PhysicianCreate - The physician data to be created.
+        - db: Session - The database session.
+
+        Returns:
+        - dict: The created physician data.
+
+        Raises:
+        - InvalidData: If the data provided is invalid.
+    """
     physician_instance = Physician(**physician.model_dump())
     db.add(physician_instance)
 

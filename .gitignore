@@ -1,0 +1,11 @@
+.idea
+.idea_modules/
+
+env/.env
+logs/*
+
+db/*
+
+# test db
+db.sqlite
+.coverage

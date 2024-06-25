@@ -13,15 +13,6 @@ from app.settings import get_settings
 SETTINGS = get_settings()
 
 
-# def get_swagger_ui_html_custom(*, openapi_url: str, title: str) -> str:
-#     return get_swagger_ui_html(
-#         openapi_url=openapi_url,
-#         title=title,
-#         swagger_js_url="/static/swagger-ui-bundle.js",
-#         swagger_css_url="/static/swagger-ui.css",
-#     )
-
-
 def init_app():
     _app = FastAPI(redoc_url=None,
                    docs_url=None,

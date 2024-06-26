@@ -42,13 +42,10 @@ The application uses SQLAlchemy for database management. Database models are def
 - `/docs`: Swagger UI documentation for the API.
 - `/redoc`: ReDoc documentation for the API.
 - `POST /users/`: Create a new user.
-- `GET /users/{user_id}/`: Get user details by ID.
 - `POST /patients/`: Create a new patient record.
-- `GET /patients/{patient_id}/`: Get patient record by ID.
 - `POST /physicians/`: Create a new physician record.
-- `GET /physicians/{physician_id}/`: Get physician record by ID.
 - `POST /records/`: Create a new health record.
-- `GET /records/{record_id}/`: Get health record by ID.
+- `GET /record/patient/{patient_id}/`: Get health record by patient ID.
 
 
 ## Documentation
